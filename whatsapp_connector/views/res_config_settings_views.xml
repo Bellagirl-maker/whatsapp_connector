@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.whatsapp</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <div class="app_settings_block" 
+                     string="WhatsApp" 
+                     string_key="whatsapp" 
+                     data-key="whatsapp_connector"
+                     visible="context.get('module') == 'whatsapp_connector'">
+                    
+                    <h2>WhatsApp API Configuration</h2>
+                    <div class="row mt16 o_settings_container">
+                        
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label font-weight-bold">API Credentials</span>
+                                <div class="text-muted mb-3">Configure your Twilio gateway tokens and endpoints.</div>
+                                
+                                <div class="content-group">
+                                    <div class="row mt8">
+                                        <label for="whatsapp_api_key" class="col-lg-4 o_light_label">Twilio Auth Token / API Key</label>
+                                        <div class="col-lg-8">
+                                            <field name="whatsapp_api_key" password="True"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="whatsapp_endpoint" class="col-lg-4 o_light_label">Twilio Endpoint URL</label>
+                                        <div class="col-lg-8">
+                                            <field name="whatsapp_endpoint"/>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt16">
+                                    <button name="action_test_whatsapp_connection" 
+                                            type="object" 
+                                            string="Test Connection" 
+                                            class="btn btn-secondary"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label font-weight-bold">Gateway Routing</span>
+                                <div class="text-muted mb-3">Set up your profile sender number and messaging templates.</div>
+                                
+                                <div class="content-group">
+                                    <div class="row mt8">
+                                        <label for="whatsapp_sender_number" class="col-lg-4 o_light_label">Twilio Sender Number</label>
+                                        <div class="col-lg-8">
+                                            <field name="whatsapp_sender_number" placeholder="e.g., +14155238886"/>
+                                        </div>
+                                    </div>
+                                    <div class="row mt8">
+                                        <label for="whatsapp_template_id" class="col-lg-4 o_light_label">Default Content Template ID</label>
+                                        <div class="col-lg-8">
+                                            <field name="whatsapp_template_id" placeholder="e.g., HXb5b62575..."/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_whatsapp_config_settings" model="ir.actions.act_window">
+        <field name="name">WhatsApp Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="context">{'module': 'whatsapp_connector'}</field>
+    </record>
+
+    <menuitem id="menu_whatsapp_config_settings"
+              name="WhatsApp"
+              parent="base.menu_administration"
+              action="action_whatsapp_config_settings"
+              sequence="10"/>
+</odoo>
