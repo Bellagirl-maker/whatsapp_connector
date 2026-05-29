@@ -13,6 +13,11 @@ This module seamlessly integrates Odoo with the Twilio WhatsApp API to send real
     """,
     'author': 'Bella Tech',
     'category': 'Sales/CRM',
+    
+    'images': [
+        'static/description/banner.png'
+    ],
+    
     'depends': ['base', 'sale_management', 'account'],
     'data': [
         'views/res_config_settings_views.xml',
